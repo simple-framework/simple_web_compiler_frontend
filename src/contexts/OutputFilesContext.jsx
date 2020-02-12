@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useEffect } from 'react';
-import { outputFilesReducer } from '../reducers/outputFilesReducer';
+import outputFilesReducer from '../reducers/outputFilesReducer';
 
 export const OutputFilesContext = createContext();
 

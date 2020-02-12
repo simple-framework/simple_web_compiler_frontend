@@ -1,24 +1,35 @@
 import React, { useContext } from 'react'
-import { Tab, Tabs } from 'react-bootstrap'
+import { Tab, Nav } from 'react-bootstrap'
 import { OutputFilesContext } from '../../contexts/OutputFilesContext'
+
+import OutputPreviewTab from './OutputPreviewTab'
+
 
 const OutputPreviewTablist = () => {
     const { outputFiles } = useContext(OutputFilesContext)
     let fileTabs = []
-
-    if(outputFiles.length !== 0)
-        for(let [filename, contents] of Object.entries(Object.entries(outputFiles)[0][1]['files'])) {
+    let fileNav = []
+    if (Object.entries(outputFiles['compilations']).length !== 0) {
+        const selectedCompilation = outputFiles['compilations'][outputFiles['selected']]
+        const files = selectedCompilation ? selectedCompilation['files'] : []
+        
+        for (let [filename, contents] of Object.entries(files)) {
             fileTabs.push(
-                <Tab eventKey={filename} title={filename} key={filename}>
-                    <div>{contents}</div>
-                </Tab>
+                <OutputPreviewTab filename={filename} key={filename}>{contents}</OutputPreviewTab>
             )
+            fileNav.push(<Nav.Item><Nav.Link key={filename} eventKey={filename}>{filename}</Nav.Link></Nav.Item>)
         }
+    }
 
     return (
-        <Tabs defaultActiveKey='augmented_conf'>
-            {fileTabs}
-        </Tabs>
+        <Tab.Container defaultActiveKey='augmented_conf'>
+            <Nav variant="pills">
+                {fileNav}
+            </Nav>
+            <Tab.Content>
+                {fileTabs}
+            </Tab.Content>
+        </Tab.Container>
     )
 }
 

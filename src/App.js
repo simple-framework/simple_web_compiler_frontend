@@ -6,6 +6,7 @@ import './App.css';
 import Header from './components/layout/Header';
 import UploadFileForm from './components/input/UploadFileForm';
 import OutputFilesPreviewTablist from './components/output/OutputPreviewTablist';
+import CompilationHistory from './components/output/CompilationHistory';
 
 import OutputFilesContextProvider from './contexts/OutputFilesContext';
 
@@ -19,8 +20,9 @@ function App() {
             <UploadFileForm />
           </Row>
           <Row>
-            <OutputFilesPreviewTablist />
+            <CompilationHistory />
           </Row>
+          <OutputFilesPreviewTablist />
         </Container>
       </OutputFilesContextProvider>
     </div>

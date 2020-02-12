@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Simplifica';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Simplifica'), url('fonts/simplifica.woff') format('woff');
+}
+
+header {
+    text-align: center;
+    font-family: Simplifica;
+    color: aquamarine;
+}
