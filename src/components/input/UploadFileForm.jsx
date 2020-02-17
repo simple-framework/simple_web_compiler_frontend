@@ -6,13 +6,18 @@ const UploadFileForm = () => {
     const { dispatch } = useContext(OutputFilesContext)
     const [siteConf, setSiteConf] = useState('')
     const [isLoading, setLoading] = useState(false)
+    
+    const backendHost = process.env.BACKEND_SERVICE_HOST | '0.0.0.0'
+    const backendPort = process.env.BACKEND_SERVICE_PORT | '8080'
+
+    const backendCompileEndpoint = `http://${backendHost}:${backendPort}/compile`
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const data = new FormData();
         data.append('site_conf', siteConf)
         setLoading(true);
-        fetch('http://localhost:5000/compile', {
+        fetch(backendCompileEndpoint, {
             method: 'POST',
             mode: 'cors',
             body: data

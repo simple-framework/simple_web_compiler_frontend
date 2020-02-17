@@ -9,6 +9,7 @@ const OutputPreviewTablist = () => {
     const { outputFiles } = useContext(OutputFilesContext)
     let fileTabs = []
     let fileNav = []
+    console.log(outputFiles)
     if (Object.entries(outputFiles['compilations']).length !== 0) {
         const selectedCompilation = outputFiles['compilations'][outputFiles['selected']]
         const files = selectedCompilation ? selectedCompilation['files'] : []
