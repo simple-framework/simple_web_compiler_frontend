@@ -4,11 +4,13 @@ import outputFilesReducer from '../reducers/outputFilesReducer';
 export const OutputFilesContext = createContext();
 
 const OutputFilesContextProvider = (props) => {
-  const [outputFiles, dispatch] = useReducer(outputFilesReducer, {compilations:[], selected: ''}, () => {
+  const [outputFiles, dispatch] = useReducer(outputFilesReducer, {compilations: {}, selected: ''}, () => {
     const localData = localStorage.getItem('output_files');
-    return localData ? JSON.parse(localData) : {compilations:[], selected: ''};
+    return localData ? JSON.parse(localData) : {compilations: {}, selected: ''};
   });
   useEffect(() => {
+    console.log('OUTPUT')
+    console.log(outputFiles)
     localStorage.setItem('output_files', JSON.stringify(outputFiles));
   }, [outputFiles]);
   return (
