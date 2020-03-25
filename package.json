@@ -1,5 +1,5 @@
 {
-  "name": "simple_web_compiler_frontend",
+  "name": "simple-web-compiler-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
