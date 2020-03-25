@@ -9,8 +9,6 @@ const OutputFilesContextProvider = (props) => {
     return localData ? JSON.parse(localData) : {compilations: {}, selected: ''};
   });
   useEffect(() => {
-    console.log('OUTPUT')
-    console.log(outputFiles)
     localStorage.setItem('output_files', JSON.stringify(outputFiles));
   }, [outputFiles]);
   return (

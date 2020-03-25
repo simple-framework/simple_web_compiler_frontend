@@ -7,10 +7,8 @@ const UploadFileForm = () => {
     const [siteConf, setSiteConf] = useState('')
     const [isLoading, setLoading] = useState(false)
     
-    const backendHost = process.env.BACKEND_SERVICE_HOST | '0.0.0.0'
-    const backendPort = process.env.BACKEND_SERVICE_PORT | '8080'
-
-    const backendCompileEndpoint = `http://${backendHost}:${backendPort}/compile`
+    const backendIP = process.env.BACKEND_IP | 'simple-compiler-api.web.cern.ch'
+    const backendCompileEndpoint = `http://${backendIP}/compile`
 
     const handleSubmit = (e) => {
         e.preventDefault()
