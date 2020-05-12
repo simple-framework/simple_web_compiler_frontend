@@ -1,6 +1,33 @@
 import React from 'react'
-import { TabPane } from 'react-bootstrap'
+import {Box} from '@material-ui/core'
+import PropTypes from 'prop-types';
 import SyntaxHighlighter from 'react-syntax-highlighter'
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            {children}
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+  };
 
 const colorLine = (lineNum, ERRORED) => {
     let style = { display: 'block' };
@@ -12,13 +39,13 @@ const colorLine = (lineNum, ERRORED) => {
 const OutputPreviewTab = (props) => {
     const ERRORED = []
     return (
-        <TabPane eventKey={props.filename} title={props.filename}>
+        <TabPanel value={props.value} index={props.index}>
             <SyntaxHighlighter language='yaml'
                 showLineNumbers wrapLines={true}
                 lineProps={ lineNum => colorLine(lineNum, ERRORED) }>
                 {props.children}
             </SyntaxHighlighter>
-        </TabPane>
+        </TabPanel>
     )
 }
 

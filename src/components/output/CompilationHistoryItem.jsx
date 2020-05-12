@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 import { OutputFilesContext } from '../../contexts/OutputFilesContext'
-import { Card, Button } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { MenuItem, ListItemIcon, ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core'
+import DoneIcon from '@material-ui/icons/Done'
+import ErrorIcon from '@material-ui/icons/Error'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const formatDate = (date) => {
     return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
@@ -10,17 +11,18 @@ const formatDate = (date) => {
 
 const CompilationHistoryItem = (props) => {
     const { dispatch } = useContext(OutputFilesContext);
-    const cardBorder = props.compilationErrored ? 'danger' : 'light'
-    const cardBg = props.selected ? 'info' : ''
-    const icon = props.compilationErrored ? faTimes : faCheck
+    const icon = props.compilationErrored ? <ErrorIcon style={{fill: "red"}}/> : <DoneIcon style={{fill: "green"}}/>
     
     return (
-        <Card body bg={cardBg} border={cardBorder} className='compilation-history-item' onClick={() => dispatch({type: 'SET_SELECTED_COMPILATION', date: props.compilationTime })}>
-            <Button variant='danger' onClick={() => dispatch({type: 'REMOVE_OUTPUT_FILES', date: props.compilationTime })}>X</Button>
-            <div>{formatDate(new Date(Number(props.compilationTime)))}</div>
-            <FontAwesomeIcon icon={icon} />
-            {props.compilationErrored ? 'Compilation has failed' : 'Compilation has succeeded'}
-        </Card>
+        <MenuItem selected={props.selected} button onClick={() => dispatch({type: 'SET_SELECTED_COMPILATION', date: props.compilationTime })}>
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText>{formatDate(new Date(Number(props.compilationTime)))}</ListItemText>
+            <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="delete" onClick={() => dispatch({type: 'REMOVE_OUTPUT_FILES', date: props.compilationTime })}>
+                    <DeleteIcon />
+                </IconButton>
+            </ListItemSecondaryAction>
+        </MenuItem>
     )
 }
 
